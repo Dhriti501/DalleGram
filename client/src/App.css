@@ -1,0 +1,13 @@
+*{
+  padding: 0;
+  margin: 0;
+  font-family:'Times New Roman', Times, serif;
+}
+
+
+/* styles applied to link buttons */
+.linkBtn{
+  color: white !important;
+  text-decoration: none !important;
+  margin-right: 1rem;
+}
