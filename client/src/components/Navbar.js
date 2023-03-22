@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -10,17 +10,18 @@ import CameraIcon from '@mui/icons-material/Camera';
 const Navbar = () => {
   return (
     <div>
-      <AppBar position="static" color="secondary">
-        <Toolbar>
+      <AppBar position="static" sx={{backgroundColor:"#900C3F"}}>
+        <Toolbar>         
 
           {/* icon */}
           <IconButton
             size="large"
             edge="start"
             color="inherit"
-            sx={{ mr: 4 }}
           >
             <CameraIcon />
+          {/* <img src="../assets/logo.png" alt="openAI-logo"/> */}
+
           </IconButton>
 
           {/* title */}

@@ -2,20 +2,20 @@ import './App.css';
 import React from 'react';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from './components/Navbar';
 
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Navbar />
       <Routes>
         <Route  path="/" exact element={<Home />}></Route>
         <Route  path="/create-post" element={<CreatePost />}></Route>
         <Route  path="*" element={<h1>Oops! Page not found! </h1>}></Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
     
   );
 }
