@@ -1,10 +1,50 @@
-import { Box, Button, Card, CardActionArea, CardMedia, InputBase, TextField } from '@mui/material'
-import { Container } from '@mui/system'
-import React from 'react'
-import PreviewImage from './PreviewImage'
+import { Box, Button, Card, CardActionArea, CardMedia, TextField } from '@mui/material'
+import React, { useState } from 'react'
 import '../App.css';
 
 const FormField = () => {
+
+  const previewImgUrl = "https://icons.iconarchive.com/icons/praveen/minimal-outline/512/gallery-icon.png";
+  const loadingUrl = "https://media.tenor.com/7NX24XoJX0MAAAAC/loading-fast.gif"
+
+  const [username,setUsername] = useState('');
+  const [prompt,setPrompt] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [imgUrl, setImgUrl] = useState(previewImgUrl)
+
+
+  // tracking username change 
+  const handleUsername = (e)=>{
+    setUsername(e.target.value);
+  }
+
+  // tracking prompt change 
+  const handlePrompt = (e)=>{
+    setPrompt(e.target.value);
+  }
+
+  // generate button clicked
+  const generatePreview = async()=>{
+
+    if(username && prompt){
+      setLoading(true)
+
+      const response = await fetch("http://localhost:4000/openai/generateimage", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({prompt})
+      });
+    
+      const result = await response.json();
+      setLoading(false)
+      setImgUrl(result.data)
+    }else{
+      alert("Enter proper data")
+    }
+  }
+
   return (
     <Box mt={2} p={2}
       sx={{
@@ -38,17 +78,20 @@ const FormField = () => {
           label="Username"
           placeholder='Type your Username...'
           name="username"
+          onChange={handleUsername}
+          // onChange={(newValue) => setUsername(newValue.target.value)}
         ></TextField>
         <TextField
           variant='outlined'
           label="Search Text"
           placeholder='Type search text...'
           name="searchText"
+          onChange={handlePrompt}
         ></TextField>
       </Box>
 
       {/* box containing buttons  */}
-      <Box classname="createBtnBox" >
+      <Box className="createBtnBox" >
         <Button
           variant='contained'
           sx={{marginRight:"2rem"}}
@@ -57,8 +100,9 @@ const FormField = () => {
         </Button>
         <Button
           variant='contained'
+          onClick={generatePreview}
         >
-          Generate
+          {imgUrl===previewImgUrl ? "Generate" : "Try Again"}
         </Button>
       </Box>
 
@@ -69,7 +113,7 @@ const FormField = () => {
             <CardMedia
               component="img"
               height="220"
-              image={require("../assets/preview.png")}
+              image={loading?loadingUrl:imgUrl}
               alt="preview-img"
             />
           </CardActionArea>

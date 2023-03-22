@@ -19,7 +19,7 @@ const Home = () => {
   // states 
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState([]);
-  const [searchText, setSearchText] = useState('abc');
+  const [searchText, setSearchText] = useState('');
 
 
   return (
