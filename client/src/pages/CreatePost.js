@@ -51,30 +51,26 @@ const CreatePost = ({handlePosts}) => {
   }
 
   // handle share photo 
-  const shareImage = () =>{
+  const shareImage = async () =>{
 
-    // if(imgUrl != previewImgUrl){
-    //   const currentImageData = {
-    //     id : Math.floor(Math.random()*21739438424),
-    //     username,
-    //     prompt,
-    //     imgUrl,
-    //   }
-    //   // console.log(currentImageData)
-    //   handlePosts(currentImageData);
-    //   navigate("/")
-    // }else{
-    //   alert("Generate an image first!!")
-    // }
     const currentImageData = {
-      id : Math.floor(Math.random()*21739438424),
       username,
       prompt,
       imgUrl,
     }
-    // console.log(currentImageData)
-    handlePosts(currentImageData);
-    navigate("/")
+
+    const response = await fetch("http://localhost:4000/mongodb/addimage", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(currentImageData)
+      });
+
+      const result = await response.json();
+      console.log(result.data)
+
+      navigate("/")
   }
 
   return (
@@ -111,7 +107,6 @@ const CreatePost = ({handlePosts}) => {
           placeholder='Type your Username...'
           name="username"
           onChange={handleUsername}
-          // onChange={(newValue) => setUsername(newValue.target.value)}
         ></TextField>
         <TextField
           variant='outlined'
